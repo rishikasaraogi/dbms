@@ -1,0 +1,151 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE DBS_COMPANY;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> USE DBS_COMPANY;
+Database changed
+mysql> create table emp;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table emp(
+    -> empno int not NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> empno int(255) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'empno int(255) not null' at line 1
+mysql> create table emp(
+    -> empno int(255) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> create table emp(
+    -> empno int(255) not null,
+    -> ename varchar(255);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> create table emp(
+    -> empno int(255) not null,
+    -> ename varchar(255),
+    -> job varchar(255),
+    -> mgr int(255),
+    -> hiredate date,
+    -> sal int(255),
+    -> comm int(255),
+    -> deptno int(255)
+    -> );
+Query OK, 0 rows affected, 5 warnings (0.92 sec)
+
+mysql> create table dept(
+    -> deptno int(255),
+    -> deptName varchar(255),
+    -> LOCATION varchar(255)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.22 sec)
+
+mysql> INSERT INTO emp
+    -> VALUES (1,"John","MANAGER",1234,2020-12-12,25000,10,5);
+ERROR 1292 (22007): Incorrect date value: '1996' for column 'hiredate' at row 1
+mysql> INSERT INTO emp
+    -> VALUES (1,"John","MANAGER",1234,'2020-12-12',25000,10,5);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> INSERT INTO emp
+    -> VALUES (2,"TINA","HR",1244,'2018-02-10',45000,20,6);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO emp
+    -> VALUES (1,"Siya","CEO",2234,'2022-10-2',85000,30,7);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO emp
+    -> VALUES (4,"rahul","Assistant",1254,'2007-02-10',25000,80,7);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO dept
+    -> VALUES (10,"CSE","PUNE");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO dept
+    -> VALUES (20,"SE","NAGPUR");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO dept
+    -> VALUES (30,"CSE","NAGPUR");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO dept
+    -> VALUES (30,"SE","BOMBAY");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from emp;
++-------+-------+-----------+------+------------+-------+------+--------+
+| empno | ename | job       | mgr  | hiredate   | sal   | comm | deptno |
++-------+-------+-----------+------+------------+-------+------+--------+
+|     1 | John  | MANAGER   | 1234 | 2020-12-12 | 25000 |   10 |      5 |
+|     2 | TINA  | HR        | 1244 | 2018-02-10 | 45000 |   20 |      6 |
+|     1 | Siya  | CEO       | 2234 | 2022-10-02 | 85000 |   30 |      7 |
+|     4 | rahul | Assistant | 1254 | 2007-02-10 | 25000 |   80 |      7 |
++-------+-------+-----------+------+------------+-------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+----------+----------+
+| deptno | deptName | LOCATION |
++--------+----------+----------+
+|     10 | CSE      | PUNE     |
+|     20 | SE       | NAGPUR   |
+|     30 | CSE      | NAGPUR   |
+|     30 | SE       | BOMBAY   |
++--------+----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from dept
+    -> where LOCATION="NAGPUR";
++--------+----------+----------+
+| deptno | deptName | LOCATION |
++--------+----------+----------+
+|     20 | SE       | NAGPUR   |
+|     30 | CSE      | NAGPUR   |
++--------+----------+----------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM EMP
+    -> WHERE MONTH(hiredate)=2;
++-------+-------+-----------+------+------------+-------+------+--------+
+| empno | ename | job       | mgr  | hiredate   | sal   | comm | deptno |
++-------+-------+-----------+------+------------+-------+------+--------+
+|     2 | TINA  | HR        | 1244 | 2018-02-10 | 45000 |   20 |      6 |
+|     4 | rahul | Assistant | 1254 | 2007-02-10 | 25000 |   80 |      7 |
++-------+-------+-----------+------+------------+-------+------+--------+
+2 rows in set (0.02 sec)
+
+mysql> select ename,sal,deptno
+    -> from emp;
++-------+-------+--------+
+| ename | sal   | deptno |
++-------+-------+--------+
+| John  | 25000 |      5 |
+| TINA  | 45000 |      6 |
+| Siya  | 85000 |      7 |
+| rahul | 25000 |      7 |
++-------+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select ename,min(sal),deptno
+    -> from emp
+    -> ;
++-------+----------+--------+
+| ename | min(sal) | deptno |
++-------+----------+--------+
+| John  |    25000 |      5 |
++-------+----------+--------+
+1 row in set (0.04 sec)
+
+mysql>
