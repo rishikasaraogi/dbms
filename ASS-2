@@ -223,5 +223,47 @@ mysql> select ename, sal, 0.1*sal as pf, 0.5*sal as hra , 0.3*sal as da , sal+ 0
 4 rows in set (0.00 sec)
 
 
+mysql> select min(sal)
+    -> from emp;
++----------+
+| min(sal) |
++----------+
+|    25000 |
++----------+
+1 row in set (0.00 sec)
+
+
+mysql> select sal, max(sal), min(sal), avg(sal)
+    -> from emp
+    -> where deptno=7;
++-------+----------+----------+------------+
+| sal   | max(sal) | min(sal) | avg(sal)   |
++-------+----------+----------+------------+
+| 85000 |    85000 |    25000 | 55000.0000 |
++-------+----------+----------+------------+
+1 row in set (0.00 sec)
+
+    -> from emp;
++-------+-------+--------------------+
+| ename | sal   | incremented_salary |
++-------+-------+--------------------+
+| John  | 25000 |            27500.0 |
+| TINA  | 45000 |            49500.0 |
+| Siya  | 85000 |            93500.0 |
+| rahul | 25000 |            27500.0 |
++-------+-------+--------------------+
+4 rows in set (0.00 sec)
+
+
+mysql> select ename from emp where ename like '_i%';
++-------+
+| ename |
++-------+
+| TINA  |
+| Siya  |
++-------+
+2 rows in set (0.00 sec)
+
+
 
 mysql>
