@@ -148,4 +148,80 @@ mysql> select ename,min(sal),deptno
 +-------+----------+--------+
 1 row in set (0.04 sec)
 
+mysql> select count(ename)
+    -> from emp
+    -> where deptno=6;
++--------------+
+| count(ename) |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.00 sec)
+
+
+where deptno=6' at line 1
+mysql> select avg(sal)
+    -> from emp
+    -> where deptno=6;
++------------+
+| avg(sal)   |
++------------+
+| 45000.0000 |
++------------+
+1 row in set (0.00 sec)
+
+
+
+mysql> select ename,sal,sal*0.1 as pf
+    -> from emp;
++-------+-------+--------+
+| ename | sal   | pf     |
++-------+-------+--------+
+| John  | 25000 | 2500.0 |
+| TINA  | 45000 | 4500.0 |
+| Siya  | 85000 | 8500.0 |
+| rahul | 25000 | 2500.0 |
++-------+-------+--------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * from emp
+    -> order by sal asc;
++-------+-------+-----------+------+------------+-------+------+--------+
+| empno | ename | job       | mgr  | hiredate   | sal   | comm | deptno |
++-------+-------+-----------+------+------------+-------+------+--------+
+|     1 | John  | MANAGER   | 1234 | 2020-12-12 | 25000 |   10 |      5 |
+|     4 | rahul | Assistant | 1254 | 2007-02-10 | 25000 |   80 |      7 |
+|     2 | TINA  | HR        | 1244 | 2018-02-10 | 45000 |   20 |      6 |
+|     1 | Siya  | CEO       | 2234 | 2022-10-02 | 85000 |   30 |      7 |
++-------+-------+-----------+------+------------+-------+------+--------+
+
+
+
+mysql> select ename,hiredate from emp
+    -> order by hiredate desc;
++-------+------------+
+| ename | hiredate   |
++-------+------------+
+| Siya  | 2022-10-02 |
+| John  | 2020-12-12 |
+| TINA  | 2018-02-10 |
+| rahul | 2007-02-10 |
++-------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select ename, sal, 0.1*sal as pf, 0.5*sal as hra , 0.3*sal as da , sal+ 0.1*sal + 0.5 * sal + 0.3 * sal as gross from emp
+    -> order by gross asc;
++-------+-------+--------+---------+---------+----------+
+| ename | sal   | pf     | hra     | da      | gross    |
++-------+-------+--------+---------+---------+----------+
+| John  | 25000 | 2500.0 | 12500.0 |  7500.0 |  47500.0 |
+| rahul | 25000 | 2500.0 | 12500.0 |  7500.0 |  47500.0 |
+| TINA  | 45000 | 4500.0 | 22500.0 | 13500.0 |  85500.0 |
+| Siya  | 85000 | 8500.0 | 42500.0 | 25500.0 | 161500.0 |
++-------+-------+--------+---------+---------+----------+
+4 rows in set (0.00 sec)
+
+
+
 mysql>
